@@ -1,7 +1,19 @@
 .DS_Store
 .Rproj.user
-.Rhistory
 .RData
 .Ruserdata
-./out/
+
+# NEVER commit history, to avoid leaking passwords etc.
+.Rhistory
+.python_history
+
+# Ignore quarto assets that were added by rendering from ./src/qmd
+/out/src/
+
+# Ignore Quarto's cache directories, which are only for fast local rendering
+**/*_cache/
+
+# Ignore contents of a staging folder
+/dev/
+
 /.quarto/
