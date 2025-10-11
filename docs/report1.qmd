@@ -2,7 +2,7 @@
 title: "Computational Biology Foundations (CSB195) - Report 1"
 subtitle: "Evaluating Optimization of the Universal Genetic Code for Mutation Tolerance"
 author: "Aidan Wang"
-date: "`r Sys.Date()`"
+date: "October 11, 2025"
 format:
   html:
     toc: true
@@ -15,13 +15,13 @@ theme: default
 
 ## Summary
 
-This report evaluates whether the Standard Genetic Code (SGC) is optimized for tolerance to point mutations by comparing its mutation-tolerance score against a distribution of 1000 randomly generated alternative codes. We hypothesized that if the SGC evolved under selective pressure to minimize the impact of mutations, it should score significantly higher than random codes with the same biological constraints.
+This report evaluates whether the Standard Genetic Code (SGC) is optimized for tolerance to point mutations by comparing its mutation-tolerance score against a distribution of 1000 randomly generated alternative codes. We hypothesized that if the SGC evolved under selective pressure to minimize the impact of mutations, it should score significantly better than random codes with the same biological constraints.
 
 **Key findings:**
 
 * The SGC achieved a mutation-tolerance score of 9856.116
-* Random codes averaged 9371.87 ± 122.52 (mean ± SD)
-* The SGC score placed at the **98.9th percentile** of the random distribution (z = 3.90)
+* Random codes averaged 13687.69 ± 944.65 (mean ± SD)
+* The SGC score placed lower than all 1000 scores in the random distribution (z = -4.06)
 * This suggests the SGC is substantially better optimized for mutation tolerance than would be expected by chance
 
 These results provide strong evidence that the universal genetic code reflects evolutionary optimization for robustness to point mutations.
@@ -38,10 +38,10 @@ Mutation tolerance is quantified as the sum of amino-acid similarities across al
 
 1. For each of the 64 codons, identify all 9 single-nucleotide neighbours (3 positions × 3 alternative nucleotides)
 2. Translate both the original codon and each neighbour to their encoded amino acids
-3. Calculate the amino-acid similarity for each pair using the aaSim() function (scale: 0–1)
+3. Calculate the amino-acid similarity for each pair using the aaSim() function
 4. Sum all 64 × 9 = 576 pairwise similarities to obtain a single quality score
 
-Higher scores indicate greater tolerance to point mutations (i.e., mutations are more likely to result in chemically similar amino acids, preserving protein function).
+Lower scores indicate greater tolerance to point mutations (i.e., mutations are more likely to result in chemically similar amino acids, preserving protein function).
 
 ### Standard Genetic Code Benchmark
 
@@ -70,7 +70,7 @@ This approach generates a null distribution representing codes with no evolution
 
 ### Benchmark Validation
 
-```{r, warning=FALSE, message=FALSE}
+```{r, warning=FALSE, message=FALSE, results="hold"}
 set.seed(42)
 
 # Load the official aaSim() function from course repository
@@ -151,7 +151,7 @@ cat("\n✓ Benchmark validated.\n")
 
 ### Random Code Generation and Analysis
 
-```{r, warning=FALSE, message=FALSE}
+```{r, warning=FALSE, message=FALSE, results="hold"}
 # Generate a random valid genetic code
 generate_random_code <- function() {
   amino_acids <- c("A", "C", "D", "E", "F", "G", "H", "I", "K", "L",
@@ -229,6 +229,7 @@ knitr::kable(comparison_table, caption = "Comparison of Standard Genetic Code vs
 ```{r, warning=FALSE, message=FALSE, fig.cap="Histogram showing mutation-tolerance scores for 1000 random genetic codes with the Standard Genetic Code score marked in red."}
 hist(random_scores,
      breaks = 50,
+     xlim = c(min(random_scores, sgc_score) - 500, max(random_scores) + 500),
      main = "Mutation-Tolerance Scores: Random vs Standard Genetic Code",
      xlab = "Quality Score",
      ylab = "Frequency",
@@ -276,13 +277,13 @@ knitr::kable(quantile_table, caption = "Quantile analysis: position of SGC score
 
 ### Interpretation
 
-The Standard Genetic Code demonstrates substantially higher mutation tolerance than random alternative codes. The SGC achieved a score of 9856.12, placing it at the **98.9th percentile** of 1000 randomly generated codes (z = 3.90). This represents a significant deviation from the null expectation that genetic codes are randomly optimized.
+The Standard Genetic Code demonstrates substantially higher mutation tolerance than random alternative codes. The SGC achieved a score of 9856.12, placing it lower than all 1000 randomly generated codes (z = -4.06). This represents a significant deviation from the null expectation that genetic codes are randomly optimized.
 
 The SGC's superior performance is not distributed uniformly across all codons. Particularly conserved are the four codons for amino acids critical to early life (methionine and tryptophan, encoded by single codons, and several highly constrained amino acids), suggesting that evolutionary pressure acted selectively on functionally important regions of the code.
 
 ### Evidence for Optimization
 
-The analysis provides strong evidence that the universal genetic code is evolutionarily optimized for robustness to point mutations. If the SGC had arisen by chance alone, the probability of achieving such a high percentile score is extremely low (p < 0.01 under the null model). This aligns with extensive prior research demonstrating that the SGC is non-random and exhibits organizational principles that minimize the deleterious effects of mutations (e.g., "wobble" base pairing, chemical similarity of amino acids assigned to synonymous codons).
+The analysis provides strong evidence that the universal genetic code is evolutionarily optimized for robustness to point mutations. If the SGC had arisen by chance alone, the probability of achieving such a high percentile score is extremely low (p < 0.01 under the null model). This aligns with extensive prior research demonstrating that the SGC is non-random and exhibits organizational principles that minimize the deleterious effects of mutations, such as "wobble" base pairing and chemical similarity of amino acids assigned to synonymous codons (Crick 1966; Freeland and Hurst 1998).
 
 ### Limitations and Future Work
 
@@ -290,7 +291,7 @@ The analysis provides strong evidence that the universal genetic code is evoluti
 
 * **Null model assumptions:** Random codes were generated with uniform probability across all valid assignments. Real alternative codes might reflect different selective pressures (codon usage bias, GC content, translation efficiency) not captured here.
 
-* **Single trait evaluation:** This analysis evaluates only mutation tolerance. The SGC optimizes for multiple traits (translation speed, mRNA stability, tRNA availability, etc.), and optimization for one trait may come at a cost to others.
+* **Single trait evaluation:** This analysis evaluates only mutation tolerance. The SGC optimizes for multiple traits (translation speed, mRNA stability, tRNA availability, etc.), and optimization for one trait may come at a cost to others (Higgs and Ran 2008).
 
 * **Static snapshot:** The SGC represents a frozen evolutionary optimum. Local search algorithms might identify alternative codes with even higher mutation tolerance, suggesting the SGC occupies a local, not global, optimum.
 
@@ -300,13 +301,31 @@ The analysis provides strong evidence that the universal genetic code is evoluti
 
 ### Biological Significance
 
-These findings support the hypothesis that the universal genetic code is a product of both historical contingency and adaptive refinement. The extreme optimization for mutation tolerance suggests that selection for robustness has been a significant evolutionary force, particularly early in the evolution of life when genetic systems were most error-prone. This finding has implications for understanding the evolution of genetic systems in other planets or synthetic biology applications where alternative codes might be engineered.
+These findings support the hypothesis that the universal genetic code is a product of both historical contingency and adaptive refinement (Wong 1975). The extreme optimization for mutation tolerance suggests that selection for robustness has been a significant evolutionary force, particularly early in the evolution of life when genetic systems were most error-prone (Gilis et al. 2001). This finding has implications for understanding the evolution of genetic systems in other planets or synthetic biology applications where alternative codes might be engineered.
 
-## Appendix: AI Assistant Contributions
+## References
 
-### Summary of Assistance
+Crick, F. H. 1966. "Codon—anticodon pairing: The wobble hypothesis." 
+*Journal of Molecular Biology* 19, no. 2: 548–555. [https://doi.org/10.1016/S0022-2836(66)80022-0](https://doi.org/10.1016/S0022-2836(66)80022-0)
 
-The ChatGPT assistant contributed significantly to the development of this analysis:
+Freeland, S. J., and L. D. Hurst. 1998. "The genetic code is one in a 
+million." *Journal of Molecular Evolution* 47, no. 3: 238–248. [https://doi.org/10.1007/pl00006381](https://doi.org/10.1007/PL00006381)
+
+Gilis, D., S. Massar, M. E. Cerf, and M. Rooman. 2001. "Optimality of 
+the genetic code with respect to protein stability and amino-acid 
+frequencies." *Genome Biology* 2, no. 11: research0049. [https://doi.org/10.1186/gb-2001-2-11-research0049](https://doi.org/10.1186/gb-2001-2-11-research0049) 
+
+Higgs, P. G., and W. Ran. 2008. "Coevolution of codon usage and tRNA genes leads to alternative stable states of biased codon usage." *Molecular Biology Evolution* 25, no. 11: 2279-2291. [https://doi.org/10.1093/molbev/msn173](https://doi.org/10.1093/molbev/msn173)
+
+Wong, J. T. 1975. "A coevolution theory of the genetic code." 
+*Proceedings of the National Academy of Sciences* 72, no. 5: 1909–1912.
+[https://doi.org/10.1073/pnas.72.5.1909](https://doi.org/10.1073/pnas.72.5.1909)
+
+## Appendix
+
+### Summary of AI Assistance
+
+The Claude Sonnet 4.5 assistant was used for the majority of the development of this analysis, and was able to achieve several tasks listed in the "Strengths" below. Initially, however, the ChatGPT 5 assistant was used, but a major obstacle was faced in setting the proper SGC benchmark that revealed general weaknesses in AI assistance that are listed in the "Weaknesses" below.
 
 **Strengths:**
 
@@ -316,32 +335,23 @@ The ChatGPT assistant contributed significantly to the development of this analy
 * Suggested and implemented useful statistical analyses (percentiles, z-scores, quantile comparison)
 * Produced visualization code that clearly communicates results
 
-**Refinements Required:**
+**Weaknesses:**
 
-* Minor: The initial code did not include error handling for edge cases (though none arose in practice)
-* The assistant did not initially suggest stratified or guided random code generation, which might have produced more biologically plausible alternatives
+* Failed to identify critical knowledge gaps about the aaSim() function's handling of stop codons, instead making unfounded assumptions and proceeding without clarification
+* Incorrectly asserted that "aaSim is undefined for Stop" and built flawed logic around this false premise, missing the distinction between literal errors and valid function calls using "*"
+* Generated code that executed without errors but produced incorrect results, masking the logical error and creating a false sense of correctness
+* Did not recognize or surface its own blind spots regarding the mismatch between its mental model of the function and its actual behavior
+* Lacked awareness of standard bioinformatics conventions (e.g., using "*" for stop codons) that would have prevented the fundamental misunderstanding
 
-**Manual Additions:**
-
-* Integration into Quarto document structure
-* Biological interpretation and contextualization of results
-* Discussion of limitations and assumptions
-* Connection to broader evolutionary biology literature
-
-Overall, the assistant effectively translated a complex computational protocol into working code and contributed meaningfully to the technical analysis.
+Ultimately, AI was still able to effectively translated a complex computational protocol into working code and contributed meaningfully to the technical analysis.
 
 ## Self-Assessment
 
-**Estimated Mark: 85/100**
+**Proposed Mark: 91/100**
 
 **Justification:**
 
-* ✓ **Implementation correctness:** Code correctly implements the specified algorithm and validates against the benchmark (9856.116). All biological constraints are enforced. Statistical analysis is sound.
-* ✓ **Methods clarity:** The Methods section clearly explains the scoring measure, code generation procedure, and controls.
-* ✓ **Results presentation:** Results are presented in multiple formats (numeric table, histogram, quantile analysis) with appropriate interpretation.
-* ✓ **Analysis depth:** The analysis includes z-score, percentile, and quantile analysis, going beyond basic comparison.
-* ✓ **Report structure:** The report follows all required sections with appropriate formatting and conciseness.
-* ⚠ **Biological depth:** While the Conclusion discusses evolutionary implications, deeper engagement with the literature on codon usage bias, tRNA availability, or translation efficiency could strengthen the analysis.
-* ⚠ **Methodological innovation:** The random code generation uses a simple uniform model. More sophisticated null models (e.g., preserving codon usage patterns) could enhance the analysis.
-
-Deductions: −10 points for limited biological context and methodological sophistication; −5 points for modest room to expand discussion of evolutionary mechanisms.
+* Report is clear, well-structured, and reproducible. Methods and assumptions are stated, visuals support interpretation, and conclusions are accurate though not overly detailed.
+* Cerified the benchmark score (9856.116). Code is correct, readable, and tested, with minor room for better modularity.
+* Used AI effectively while making sure to check all results independently.
+* Meets “excellent” level—accurate, complete, and thoughtfully executed, though not exceptionally original.
