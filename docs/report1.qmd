@@ -77,7 +77,7 @@ set.seed(42)
 baseURL <- "https://raw.githubusercontent.com/hyginn/CSB195/main/"
 fn <- "./dat/aaSim.4.1.Rds"
 download.file(paste0(baseURL, fn), fn)
-aaSim <- readRDS("./dat/aaSim.4.1.Rds")
+aaSim <- readRDS("../dat/aaSim.4.1.Rds")
 
 # Define the Standard Genetic Code
 SGC <- c(
