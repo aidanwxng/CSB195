@@ -17,3 +17,5 @@
 /dev/
 
 /.quarto/
+
+**/*.quarto_ipynb

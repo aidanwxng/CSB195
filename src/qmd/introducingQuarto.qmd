@@ -143,6 +143,8 @@ versions:
 
 This Quarto document integrates metadata, styling, and R code. Its basic content is written with a simple text markup language called ["Markdown"](https://www.markdownguide.org/). But when _rendering_ the document it uses the **Quarto** engine to configure the process, the `knitr::` R package to execute code and collect the results into an intermediate markdown document, and the **Pandoc** document converter, to create the output as HTML (or .docx, or .pdf, or ...). This is a sane philosophy for technical documentation: keep everything in one placee, and build derivatives - like reports, reference documents, or presentations - from the authoritative source, whenever needed. This guarantees that different views of the same contents do not go out of sync.
 
+* Bullet Point
+
 In summary:
 
 1. You author and edit the Quarto document on your local machine, using RStudio.
