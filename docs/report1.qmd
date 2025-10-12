@@ -2,7 +2,7 @@
 title: "Computational Biology Foundations (CSB195) - Report 1"
 subtitle: "Evaluating Optimization of the Universal Genetic Code for Mutation Tolerance"
 author: "Aidan Wang"
-date: "October 11, 2025"
+date: "October 12, 2025"
 format:
   html:
     toc: true
@@ -277,13 +277,13 @@ knitr::kable(quantile_table, caption = "Quantile analysis: position of SGC score
 
 ### Interpretation
 
-The Standard Genetic Code demonstrates substantially higher mutation tolerance than random alternative codes. The SGC achieved a score of 9856.12, placing it lower than all 1000 randomly generated codes (z = -4.06). This represents a significant deviation from the null expectation that genetic codes are randomly optimized.
+The Standard Genetic Code demonstrates substantially higher mutation tolerance than random alternative codes. The SGC achieved a score of 9856.116, placing it lower than all 1000 randomly generated codes (z = -4.06). This represents a significant deviation from the null expectation that genetic codes are randomly optimized.
 
-The SGC's superior performance is not distributed uniformly across all codons. Particularly conserved are the four codons for amino acids critical to early life (methionine and tryptophan, encoded by single codons, and several highly constrained amino acids), suggesting that evolutionary pressure acted selectively on functionally important regions of the code.
+### Closeness to Global Optimum
 
-### Evidence for Optimization
+The analysis provides strong evidence that the universal genetic code is evolutionarily optimized for robustness to point mutations. If the SGC had arisen by chance alone, the probability of achieving such a high percentile score is extremely low. This aligns with extensive prior research demonstrating that the SGC is non-random and exhibits organizational principles that minimize the deleterious effects of mutations, such as "wobble" base pairing and chemical similarity of amino acids assigned to synonymous codons (Crick 1966; Freeland and Hurst 1998).
 
-The analysis provides strong evidence that the universal genetic code is evolutionarily optimized for robustness to point mutations. If the SGC had arisen by chance alone, the probability of achieving such a high percentile score is extremely low (p < 0.01 under the null model). This aligns with extensive prior research demonstrating that the SGC is non-random and exhibits organizational principles that minimize the deleterious effects of mutations, such as "wobble" base pairing and chemical similarity of amino acids assigned to synonymous codons (Crick 1966; Freeland and Hurst 1998).
+However, when analyzing whether the SGC is the best it can possibly be, we can only say that it is likely close, but not at, the global optimum robustness score. This is because this experiment only focused on comparing the SGC to a random distribution of alternative codes, rather than building an algorithm to further optimize below the score 9856.116. Further limitations of this experiment are detailed below.
 
 ### Limitations and Future Work
 

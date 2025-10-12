@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Aidan Wang">
-<meta name="dcterms.date" content="2025-10-11">
+<meta name="dcterms.date" content="2025-10-12">
 
 <title>Computational Biology Foundations (CSB195) - Report 1</title>
 <style>
@@ -2229,7 +2229,7 @@ vertical-align: -.125em;
   <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion"><span class="header-section-number">4</span> Conclusion</a>
   <ul class="collapse">
   <li><a href="#interpretation" id="toc-interpretation" class="nav-link" data-scroll-target="#interpretation"><span class="header-section-number">4.1</span> Interpretation</a></li>
-  <li><a href="#evidence-for-optimization" id="toc-evidence-for-optimization" class="nav-link" data-scroll-target="#evidence-for-optimization"><span class="header-section-number">4.2</span> Evidence for Optimization</a></li>
+  <li><a href="#closeness-to-global-optimum" id="toc-closeness-to-global-optimum" class="nav-link" data-scroll-target="#closeness-to-global-optimum"><span class="header-section-number">4.2</span> Closeness to Global Optimum</a></li>
   <li><a href="#limitations-and-future-work" id="toc-limitations-and-future-work" class="nav-link" data-scroll-target="#limitations-and-future-work"><span class="header-section-number">4.3</span> Limitations and Future Work</a></li>
   <li><a href="#biological-significance" id="toc-biological-significance" class="nav-link" data-scroll-target="#biological-significance"><span class="header-section-number">4.4</span> Biological Significance</a></li>
   </ul></li>
@@ -2264,7 +2264,7 @@ vertical-align: -.125em;
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">October 11, 2025</p>
+      <p class="date">October 12, 2025</p>
     </div>
   </div>
   
@@ -2663,12 +2663,12 @@ SGC Z-score:                   -4.06 </code></pre>
 <h2 data-number="4" class="anchored" data-anchor-id="conclusion"><span class="header-section-number">4</span> Conclusion</h2>
 <section id="interpretation" class="level3" data-number="4.1">
 <h3 data-number="4.1" class="anchored" data-anchor-id="interpretation"><span class="header-section-number">4.1</span> Interpretation</h3>
-<p>The Standard Genetic Code demonstrates substantially higher mutation tolerance than random alternative codes. The SGC achieved a score of 9856.12, placing it lower than all 1000 randomly generated codes (z = -4.06). This represents a significant deviation from the null expectation that genetic codes are randomly optimized.</p>
-<p>The SGC’s superior performance is not distributed uniformly across all codons. Particularly conserved are the four codons for amino acids critical to early life (methionine and tryptophan, encoded by single codons, and several highly constrained amino acids), suggesting that evolutionary pressure acted selectively on functionally important regions of the code.</p>
+<p>The Standard Genetic Code demonstrates substantially higher mutation tolerance than random alternative codes. The SGC achieved a score of 9856.116, placing it lower than all 1000 randomly generated codes (z = -4.06). This represents a significant deviation from the null expectation that genetic codes are randomly optimized.</p>
 </section>
-<section id="evidence-for-optimization" class="level3" data-number="4.2">
-<h3 data-number="4.2" class="anchored" data-anchor-id="evidence-for-optimization"><span class="header-section-number">4.2</span> Evidence for Optimization</h3>
-<p>The analysis provides strong evidence that the universal genetic code is evolutionarily optimized for robustness to point mutations. If the SGC had arisen by chance alone, the probability of achieving such a high percentile score is extremely low (p &lt; 0.01 under the null model). This aligns with extensive prior research demonstrating that the SGC is non-random and exhibits organizational principles that minimize the deleterious effects of mutations, such as “wobble” base pairing and chemical similarity of amino acids assigned to synonymous codons (Crick 1966; Freeland and Hurst 1998).</p>
+<section id="closeness-to-global-optimum" class="level3" data-number="4.2">
+<h3 data-number="4.2" class="anchored" data-anchor-id="closeness-to-global-optimum"><span class="header-section-number">4.2</span> Closeness to Global Optimum</h3>
+<p>The analysis provides strong evidence that the universal genetic code is evolutionarily optimized for robustness to point mutations. If the SGC had arisen by chance alone, the probability of achieving such a high percentile score is extremely low. This aligns with extensive prior research demonstrating that the SGC is non-random and exhibits organizational principles that minimize the deleterious effects of mutations, such as “wobble” base pairing and chemical similarity of amino acids assigned to synonymous codons (Crick 1966; Freeland and Hurst 1998).</p>
+<p>However, when analyzing whether the SGC is the best it can possibly be, we can only say that it is likely close, but not at, the global optimum robustness score. This is because this experiment only focused on comparing the SGC to a random distribution of alternative codes, rather than building an algorithm to further optimize below the score 9856.116. Further limitations of this experiment are detailed below.</p>
 </section>
 <section id="limitations-and-future-work" class="level3" data-number="4.3">
 <h3 data-number="4.3" class="anchored" data-anchor-id="limitations-and-future-work"><span class="header-section-number">4.3</span> Limitations and Future Work</h3>
